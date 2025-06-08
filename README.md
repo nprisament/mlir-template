@@ -9,6 +9,7 @@ This setup assumes that you have built LLVM and MLIR in `$BUILD_DIR` and install
 ```sh
 mkdir build && cd build
 cmake -G Ninja .. -DMLIR_DIR=$PREFIX/lib/cmake/mlir -DLLVM_EXTERNAL_LIT=$BUILD_DIR/bin/llvm-lit
+sudo ln -s ~/llvm-project/build/bin/llvm-lit /usr/local/bin/lit
 cmake -S . -B build   -DMLIR_DIR="${LLVM_BUILD_DIR}/lib/cmake/mlir"   -DLLVM_DIR="${LLVM_BUILD_DIR}/lib/cmake/llvm" -DLLVM_EXTERNAL_LIT=$HOME/llvm-project/build/bin/llvm-lit
 cmake --build . --target check-standalone-opt
 ```

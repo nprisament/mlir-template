@@ -19,8 +19,8 @@
 #include "llvm/Support/SourceMgr.h"
 #include "llvm/Support/ToolOutputFile.h"
 
-#include "Standalone/StandaloneDialect.h"
-#include "Standalone/StandaloneOpsDialect.cpp.inc"
+#include "Dialect/StandaloneDialect.h"
+#include "Dialect/StandaloneOpsDialect.cpp.inc"
 
 int main(int argc, char **argv) {
   mlir::registerAllPasses();
