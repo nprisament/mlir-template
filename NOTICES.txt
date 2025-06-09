@@ -13,7 +13,7 @@ A copy of the full license text for this component is available at:
 **./LICENSE-APACHE20-LLVM.txt**
 ---
 
-**2. Enhancements and Modifications by Noah Prisament**
+**2. Enhancements and Modifications**
 
 Copyright 2025 Noah Prisament
 
