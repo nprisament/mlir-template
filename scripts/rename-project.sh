@@ -93,4 +93,4 @@ if [ $? -eq 0 ]; then
 else
     echo "Error: Project renaming failed"
     exit 1
-fi 
+fi

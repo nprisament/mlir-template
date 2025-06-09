@@ -3,6 +3,29 @@
 # Source shared variables
 source "$(dirname "$0")/vars.sh"
 
+# Parse command line arguments
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        --debug)
+            set_debug_build
+            shift
+            ;;
+        --release)
+            set_release_build
+            shift
+            ;;
+        --help|-h)
+            print_help
+            exit 0
+            ;;
+        *)
+            echo "Unknown option: $1"
+            print_help
+            exit 1
+            ;;
+    esac
+done
+
 # Function to install a command if it's missing
 install_if_missing() {
     local cmd=$1
@@ -99,10 +122,16 @@ setup_llvm() {
 
 # Function to build LLVM/MLIR
 build_llvm() {
-    print_section "Building LLVM/MLIR"
+    print_section "Building LLVM/MLIR ($CMAKE_BUILD_TYPE)"
     
     mkdir -p "$LLVM_BUILD_DIR"
     cd "$LLVM_BUILD_DIR"
+    
+    # Add sanitizer flags for debug builds
+    local SANITIZER_FLAGS=""
+    if [ "$CMAKE_BUILD_TYPE" = "Debug" ]; then
+        SANITIZER_FLAGS="-DLLVM_USE_SANITIZER='Address;Undefined'"
+    fi
     
     cmake "$LLVM_SOURCE_DIR/llvm" \
         -G "$CMAKE_GENERATOR" \
@@ -113,8 +142,10 @@ build_llvm() {
         -DCMAKE_C_COMPILER=clang \
         -DCMAKE_CXX_COMPILER=clang++ \
         -DLLVM_USE_LINKER=lld \
-        # -DLLVM_ENABLE_ASSERTIONS=ON \
-        # -DLLVM_ENABLE_RTTI=ON \
+        -DLLVM_INSTALL_UTILS=ON \
+        -DLLVM_BUILD_UTILS=ON \
+        -DLLVM_INSTALL_TOOLCHAIN_ONLY=OFF \
+        $SANITIZER_FLAGS \
         -DMLIR_ENABLE_BINDINGS_PYTHON=ON
     
     cmake --build . -j "$NUM_JOBS"
@@ -122,7 +153,7 @@ build_llvm() {
 
 # Main installation process
 main() {
-    print_section "Starting Installation"
+    print_section "Starting Installation: ($CMAKE_BUILD_TYPE)"
     
     # Install system dependencies (including required commands)
     install_system_deps
@@ -133,6 +164,7 @@ main() {
     
     print_section "Installation Complete"
     echo "LLVM/MLIR has been built in: $LLVM_BUILD_DIR"
+    echo "Build type: $CMAKE_BUILD_TYPE"
     echo "You can now run ./scripts/build.sh to build your project"
 }
 
