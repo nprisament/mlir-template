@@ -1,0 +1,41 @@
+# NOTICE
+
+This project includes material from the following sources:
+
+---
+**1. Original Project Base: MLIR Standalone Template**
+
+Source Repository: https://github.com/jmgorius/mlir-standalone-template
+Copyright 2020-2023 Jean-Michel Gorius
+
+This component is licensed under the Apache License, Version 2.0 with LLVM Exceptions.
+A copy of the full license text for this component is available at:
+**./LICENSE-APACHE20-LLVM.txt**
+---
+
+**2. Enhancements and Modifications by Noah Prisament**
+
+Copyright 2025 Noah Prisament
+
+All new code, modifications, and enhancements in this project are licensed under
+the MIT License.
+A copy of the full license text for these contributions is available at:
+**./LICENSE.txt**
+---
+
+**3. Third-Party Components**
+
+**Sanitizers CMake Module**
+- Original Source: Copyright (C) 2018 by George Cave - gcave@stablecoder.ca
+- Modified Source: Copyright (C) 2020 by Jean-Michel Gorius
+- File: `cmake/modules/sanitizers.cmake`
+
+**Transforms Passes**
+- Copyright: 2023 Enflame Revolutionary Academy
+- File: `include/Transforms/Passes.td`
+
+**LLVM/MLIR Project**
+- Source: https://github.com/llvm/llvm-project
+- License: Apache License v2.0 with LLVM Exceptions
+- Copyright: Various contributors to the LLVM Project
+- Note: This project depends on LLVM/MLIR but does not include the source code directly 
