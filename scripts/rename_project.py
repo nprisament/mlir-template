@@ -124,10 +124,6 @@ def main():
         print("No changes made. Aborting.")
         sys.exit(1)
     
-    print(f"\n✅ Project renamed successfully!")
-    print(f"📁 Renamed {renamed_count} files/directories")
-    print(f"📝 Modified {modified_count} files")
-    
     sys.exit(0)
 
 if __name__ == '__main__':

@@ -29,14 +29,27 @@ SRC_DIR="$( cd "$SCRIPT_DIR/.." &> /dev/null && pwd )"
 
 # Copy project files
 echo "Copying project files..."
-cp -rp "$SRC_DIR"/* "$DEST_PATH/" || { echo "Error: Failed to copy project"; exit 1; }
+# Use rsync to ensure all files including hidden ones are copied
+if command -v rsync &> /dev/null; then
+    rsync -av --exclude='.git' --exclude='build' --exclude='build-sanitizer' "$SRC_DIR/" "$DEST_PATH/" || { echo "Error: Failed to copy project"; exit 1; }
+else
+    # Fallback to cp with explicit hidden file handling
+    cp -rp "$SRC_DIR"/* "$SRC_DIR"/.[^.]* "$DEST_PATH/" 2>/dev/null || { echo "Error: Failed to copy project"; exit 1; }
+    [ -d "$DEST_PATH/build" ] && rm -rf "$DEST_PATH/build"
+    [ -d "$DEST_PATH/build-sanitizer" ] && rm -rf "$DEST_PATH/build-sanitizer"
+    # Verify important hidden files were copied
+    echo "Verifying important files were copied..."
+    for file in .gitignore .clang-format .clang-tidy; do
+        if [ ! -f "$DEST_PATH/$file" ]; then
+            echo "Warning: $file not found in destination, copying manually..."
+            cp "$SRC_DIR/$file" "$DEST_PATH/" 2>/dev/null || echo "Error: Failed to copy $file"
+        fi
+    done
+fi
 
 # Remove .git from copy if present
 [ -d "$DEST_PATH/.git" ] && rm -rf "$DEST_PATH/.git"
 
-# Remove build directories from copy if present
-[ -d "$DEST_PATH/build" ] && rm -rf "$DEST_PATH/build"
-[ -d "$DEST_PATH/build-sanitizer" ] && rm -rf "$DEST_PATH/build-sanitizer"
 
 # Run rename script
 echo "Renaming project..."
