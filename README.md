@@ -207,7 +207,7 @@ $HOME/llvm-project/
 ├── build-release/          # Release LLVM build
 └── build-debug/            # Debug LLVM build (with sanitizers)
 
-mlir-standalone-template/
+mlir-template/
 ├── build/                  # Main project build
 └── build-sanitizer/        # Sanitizer-enabled build
 ```
