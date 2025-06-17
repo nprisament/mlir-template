@@ -101,6 +101,26 @@ set_release_build() {
         "Warning: Release LLVM build not found at $LLVM_BUILD_DIR_RELEASE, falling back to debug build at $LLVM_BUILD_DIR_DEBUG"
 }
 
+# Function to set build type for installation (doesn't check for existing builds)
+set_install_debug_build() {
+    LLVM_BUILD_DIR="$LLVM_BUILD_DIR_DEBUG"
+    LLVM_INSTALL_DIR="$LLVM_INSTALL_DIR_DEBUG"
+    CMAKE_BUILD_TYPE="Debug"
+    MLIR_DIR="$LLVM_INSTALL_DIR/lib/cmake/mlir"
+    LLVM_DIR="$LLVM_INSTALL_DIR/lib/cmake/llvm"
+    LLVM_LIT="$LLVM_INSTALL_DIR/bin/llvm-lit"
+}
+
+# Function to set build type for installation (doesn't check for existing builds)
+set_install_release_build() {
+    LLVM_BUILD_DIR="$LLVM_BUILD_DIR_RELEASE"
+    LLVM_INSTALL_DIR="$LLVM_INSTALL_DIR_RELEASE"
+    CMAKE_BUILD_TYPE="Release"
+    MLIR_DIR="$LLVM_INSTALL_DIR/lib/cmake/mlir"
+    LLVM_DIR="$LLVM_INSTALL_DIR/lib/cmake/llvm"
+    LLVM_LIT="$LLVM_INSTALL_DIR/bin/llvm-lit"
+}
+
 # Function to print help
 print_help() {
     echo "Usage: $0 [OPTIONS]"
@@ -115,6 +135,3 @@ print_help() {
     echo "  $0 --debug      # Use debug build"
     echo "  $0 --release    # Use release build"
 }
-
-# Initialize default build directory
-init_default_build

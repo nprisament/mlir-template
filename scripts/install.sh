@@ -7,11 +7,11 @@ source "$(dirname "$0")/vars.sh"
 while [[ $# -gt 0 ]]; do
     case $1 in
         --debug)
-            set_debug_build
+            set_install_debug_build
             shift
             ;;
         --release)
-            set_release_build
+            set_install_release_build
             shift
             ;;
         --help|-h)
@@ -141,13 +141,12 @@ build_llvm() {
         -DLLVM_ENABLE_LLD=ON \
         -DCMAKE_C_COMPILER=clang \
         -DCMAKE_CXX_COMPILER=clang++ \
-        -DLLVM_USE_LINKER=lld \
         -DLLVM_INSTALL_UTILS=ON \
         -DLLVM_BUILD_UTILS=ON \
         -DLLVM_INSTALL_TOOLCHAIN_ONLY=OFF \
         $SANITIZER_FLAGS \
-        -DMLIR_ENABLE_BINDINGS_PYTHON=ON
-        # -DLLVM_PARALLEL_LINK_JOBS=1
+        -DMLIR_ENABLE_BINDINGS_PYTHON=ON \
+        -DLLVM_PARALLEL_LINK_JOBS=1
     
     cmake --build . -j "$NUM_JOBS"
 }

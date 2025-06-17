@@ -3,6 +3,9 @@
 # Source shared variables
 source "$(dirname "$0")/vars.sh"
 
+# Initialize LLVM build paths
+init_default_build
+
 # Parse command line arguments
 while [[ $# -gt 0 ]]; do
     case $1 in

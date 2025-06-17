@@ -3,6 +3,9 @@
 # Source shared variables
 source "$(dirname "$0")/vars.sh"
 
+# Initialize LLVM build paths
+init_default_build
+
 # Default to debug LLVM build for sanitizer builds
 set_debug_build
 
