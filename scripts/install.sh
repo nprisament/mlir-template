@@ -147,6 +147,7 @@ build_llvm() {
         -DLLVM_INSTALL_TOOLCHAIN_ONLY=OFF \
         $SANITIZER_FLAGS \
         -DMLIR_ENABLE_BINDINGS_PYTHON=ON
+        # -DLLVM_PARALLEL_LINK_JOBS=1
     
     cmake --build . -j "$NUM_JOBS"
 }

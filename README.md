@@ -391,6 +391,7 @@ Common issues and solutions:
    - Try using LLD linker for better performance
    - Check that all required LLVM/MLIR libraries are found
    - If you have added new MLIR includes to your files, make sure they are added to the relevant `CMakeLists.txt` file for linking
+   - Consider uncommenting `# -DLLVM_PARALLEL_LINK_JOBS=1` in the install script
 
 ## Licensing and Attributions
 
