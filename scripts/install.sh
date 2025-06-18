@@ -3,6 +3,9 @@
 # Source shared variables
 source "$(dirname "$0")/vars.sh"
 
+# Set default build type to release
+set_install_release_build
+
 # Parse command line arguments
 while [[ $# -gt 0 ]]; do
     case $1 in
@@ -75,6 +78,7 @@ install_system_deps() {
         sudo apt-get install -y \
             build-essential \
             python3-venv \
+            python3-pybind11 \
             libz-dev \
             libncurses-dev \
             libxml2-dev \
