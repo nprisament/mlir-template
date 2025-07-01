@@ -55,6 +55,8 @@ set_build_config() {
     local fallback_install_dir="$5"
     local fallback_type="$6"
     local warning_message="$7"
+
+    CMAKE_BUILD_TYPE="$primary_type"
     
     if check_build_exists "$primary_build_dir"; then
         LLVM_BUILD_DIR="$primary_build_dir"
@@ -62,7 +64,6 @@ set_build_config() {
         MLIR_DIR="$LLVM_INSTALL_DIR/lib/cmake/mlir"
         LLVM_DIR="$LLVM_INSTALL_DIR/lib/cmake/llvm"
         LLVM_LIT="$LLVM_INSTALL_DIR/bin/llvm-lit"
-        CMAKE_BUILD_TYPE="$primary_type"
     elif check_build_exists "$fallback_build_dir"; then
         echo "$warning_message"
         LLVM_BUILD_DIR="$fallback_build_dir"
@@ -70,7 +71,6 @@ set_build_config() {
         MLIR_DIR="$LLVM_INSTALL_DIR/lib/cmake/mlir"
         LLVM_DIR="$LLVM_INSTALL_DIR/lib/cmake/llvm"
         LLVM_LIT="$LLVM_INSTALL_DIR/bin/llvm-lit"
-        CMAKE_BUILD_TYPE="$fallback_type"
     else
         echo "Error: No LLVM build found. Please run ./scripts/install.sh first."
         exit 1
